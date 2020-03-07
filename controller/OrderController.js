@@ -2,12 +2,8 @@ const OrderSchema = require('../model/OrderSchema');
 
 async function AddOrder(order) {
   const data = new OrderSchema({
-    name: brand.name,
-    order: brand.order,
-    createdBy: brand.createdBy,
-    createdDate: brand.createdDate,
-    modifiedBy: brand.modifiedBy,
-    modifiedDate: brand.modifiedDate,
+    customer: order.customer,
+    sneaker: order.snekar,
   });
 
   return await data.save().catch(err => {
@@ -15,4 +11,4 @@ async function AddOrder(order) {
   });
 }
 
-module.exports = { AddBrand };
+module.exports = { AddOrder };

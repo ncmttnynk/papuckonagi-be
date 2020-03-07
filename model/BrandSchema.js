@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const moment = require('moment');
-const commonSchema = require('./CommonSchema');
+const sneakerSchema = require('./SneakerSchema');
 
 const BrandSchema = new mongoose.Schema({
   name: {
@@ -41,8 +41,9 @@ const BrandSchema = new mongoose.Schema({
     required: false,
     unique: false,
     index: false,
-    default: true,
+    default: false,
   },
+  models: [sneakerSchema.schema],
 });
 
 module.exports = mongoose.model('Brand', BrandSchema);

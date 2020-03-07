@@ -10,6 +10,8 @@ const mongoose = require('mongoose');
 
 var sneakerRoute = require('./routes/SneakerRoute');
 var brandRoute = require('./routes/BrandRoute');
+var orderRoute = require('./routes/OrderRoute');
+var customerRoute = require('./routes/CustomerRoute');
 
 var app = express();
 
@@ -39,6 +41,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', sneakerRoute);
 app.use('/', brandRoute);
+app.use('/', orderRoute);
+app.use('/', customerRoute);
 
 mongoose.Promise = global.Promise;
 

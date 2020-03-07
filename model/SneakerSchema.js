@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
-const commonSchema = require('./CommonSchema');
-const brandSchema = require('./BrandSchema');
+const moment = require('moment');
 
 const SneakerSchema = new mongoose.Schema({
   model: {
@@ -9,7 +8,6 @@ const SneakerSchema = new mongoose.Schema({
     unique: false,
     index: false,
   },
-  brand: brandSchema.schema,
   createdBy: {
     type: String,
     required: true,
@@ -35,7 +33,7 @@ const SneakerSchema = new mongoose.Schema({
     required: false,
     unique: false,
     index: false,
-    default: true,
+    default: false,
   },
 });
 
