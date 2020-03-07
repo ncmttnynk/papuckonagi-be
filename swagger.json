@@ -1,0 +1,66 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "coderBora-NodeJS-CRUD-MongoDB",
+    "description": "A minimal and easy to follow example of what you need to create a CRUD style API in NodeJs",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "tags": [
+    {
+      "name": "People",
+      "description": "API for users in the Hueman Resource"
+    }
+  ],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "paths": {
+    "/people": {
+      "get": {
+        "tags": ["Users"],
+        "summary": "Get all users in system",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "User": {
+      "type": "object",
+      "properties": {
+        "gender": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        },
+        "name": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string"
+            },
+            "first": {
+              "type": "string"
+            },
+            "last": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}
