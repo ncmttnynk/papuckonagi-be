@@ -1,19 +1,10 @@
-const BrandSchema = require('../model/BrandSchema');
-const ObjectId = require('mongodb').ObjectID;
+const Brand = require('../model/Brand');
 
-async function AddBrand(brand) {
-  const data = new BrandSchema({
-    name: brand.name,
-    order: brand.order,
-    createdBy: brand.createdBy,
-    createdDate: brand.createdDate,
-    modifiedBy: brand.modifiedBy,
-    modifiedDate: brand.modifiedDate,
-  });
-
-  return await data.save().catch(err => {
-    return err;
+async function addNewBrand(brand) {
+  return await Brand.create({
+    TITLE: brand.TITLE,
+    CREATED_BY: brand.CREATED_BY,
   });
 }
 
-module.exports = { AddBrand };
+module.exports = { addNewBrand };
