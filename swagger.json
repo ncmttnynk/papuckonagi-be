@@ -79,7 +79,7 @@
           {
             "name": "model",
             "in": "body",
-            "description": "Brand Detail",
+            "description": "Put Brand Detail",
             "required": true,
             "schema": {
               "$ref": "#/definitions/BrandPutDto"
