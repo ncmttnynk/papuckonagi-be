@@ -29,6 +29,11 @@ const Brand = sequelize.define('BRAND', {
     type: Sequelize.DATE,
     allowNull: true,
   },
+  IS_DELETED: {
+    type: Sequelize.BOOLEAN,
+    allowNull: false,
+    defaultValue: false,
+  },
 });
 
 module.exports = Brand;

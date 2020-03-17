@@ -2,31 +2,125 @@
   "swagger": "2.0",
   "info": {
     "version": "1.0.0",
-    "title": "coderBora-NodeJS-CRUD-MongoDB",
-    "description": "A minimal and easy to follow example of what you need to create a CRUD style API in NodeJs",
+    "title": "PAPUÇ KONAĞI API",
     "license": {
-      "name": "MIT",
-      "url": "https://opensource.org/licenses/MIT"
+      "name": "PAPUÇ KONAĞI",
+      "url": "https://instagram.com/papuckonagi"
     }
   },
-  "tags": [
-    {
-      "name": "People",
-      "description": "API for users in the Hueman Resource"
-    }
-  ],
   "consumes": ["application/json"],
   "produces": ["application/json"],
   "paths": {
-    "/people": {
+    "/brand/{ID}": {
       "get": {
-        "tags": ["Users"],
-        "summary": "Get all users in system",
+        "tags": ["Brand"],
+        "summary": "Get brand by ID",
+        "parameters": [
+          {
+            "name": "ID",
+            "in": "path",
+            "required": true,
+            "description": "Brand ID in DB",
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/"
+              "$ref": "#/definitions/Response"
+            }
+          }
+        }
+      }
+    },
+    "/brand": {
+      "get": {
+        "tags": ["Brand"],
+        "summary": "Get all brand",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Response"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Brand"],
+        "summary": "Add new brand",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "model",
+            "in": "body",
+            "description": "Brand Detail",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/BrandPostDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Response"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["Brand"],
+        "summary": "Update brand",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "model",
+            "in": "body",
+            "description": "Brand Detail",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/BrandPutDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Response"
+            }
+          }
+        }
+      }
+    },
+    "/brand/{ID}/{MODIFIED_BY}": {
+      "delete": {
+        "tags": ["Brand"],
+        "summary": "Delete brand by ID",
+        "parameters": [
+          {
+            "name": "ID",
+            "in": "path",
+            "required": true,
+            "description": "Brand ID in DB",
+            "type": "string"
+          },
+          {
+            "name": "MODIFIED_BY",
+            "in": "path",
+            "required": true,
+            "description": "Modified By Code",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Response"
             }
           }
         }
@@ -34,31 +128,48 @@
     }
   },
   "definitions": {
-    "User": {
+    "BrandPostDto": {
       "type": "object",
       "properties": {
-        "gender": {
+        "TITLE": {
           "type": "string"
         },
-        "email": {
+        "CREATED_BY": {
+          "type": "string"
+        }
+      }
+    },
+    "BrandPutDto": {
+      "type": "object",
+      "properties": {
+        "ID": {
+          "type": "number"
+        },
+        "TITLE": {
           "type": "string"
         },
-        "username": {
+        "MODIFIED_BY": {
           "type": "string"
         },
-        "name": {
-          "type": "object",
-          "properties": {
-            "title": {
-              "type": "string"
-            },
-            "first": {
-              "type": "string"
-            },
-            "last": {
-              "type": "string"
-            }
-          }
+        "IS_ACTIVE": {
+          "type": "boolean"
+        }
+      }
+    },
+    "Response": {
+      "type": "object",
+      "properties": {
+        "isSuccess": {
+          "type": "boolean"
+        },
+        "result": {
+          "type": "string"
+        },
+        "error": {
+          "type": "string"
+        },
+        "statusCode": {
+          "type": "string"
         }
       }
     }

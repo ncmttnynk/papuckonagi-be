@@ -7,7 +7,25 @@ var cookieParser = require('cookie-parser');
 
 var logger = require('morgan');
 var cors = require('cors');
-var swaggerUi = require('swagger-ui-express');
+
+// const swaggerJsdoc = require('swagger-jsdoc');
+
+// const options = {
+//   swaggerDefinition: {
+//     // Like the one described here: https://swagger.io/specification/#infoObject
+//     info: {
+//       title: 'Papuç Konağı API',
+//       version: '1.1.1',
+//       description: 'Papuç Konağı projesinde kullanılacak api dökümantasyonunu içermektedir.',
+//     },
+//     definitions: ['./model/*.js'],
+//   },
+//   apis: ['./routes/*.js'],
+// };
+
+// const specs = swaggerJsdoc('options');
+
+const swaggerUi = require('swagger-ui-express');
 
 const sequelize = require('./database/db');
 const helmet = require('helmet');
@@ -19,7 +37,6 @@ var brandRoute = require('./routes/BrandRoute');
 // var customerRoute = require('./routes/CustomerRoute');
 
 var app = express();
-
 swaggerDocument = require('./swagger.json');
 app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
@@ -65,6 +82,8 @@ app.use(function(req, res, next) {
   next(createError(404));
 });
 
+var opn = require('opn');
+
 //Connection
 sequelize
   //.sync()
@@ -72,6 +91,7 @@ sequelize
   .then(() => {
     console.log('Connection has been established successfully.');
     app.listen(process.env.PORT || 3001);
+    opn('http://localhost:3000/swagger/', { app: 'firefox' });
   })
   .catch(err => {
     console.error('Unable to connect to the database:', err);
