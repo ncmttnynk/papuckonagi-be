@@ -15,4 +15,7 @@ const sequelize = new Sequelize('papuckonagi', 'root', '0453', {
   timezone: '+03:00',
 });
 
+// const sequelize = new Sequelize('ncmttnynk_site_papuckonagi', 'ncmtt_papuc', 'u!f3F50t', {
+//   host: '94.73.145.192',
+
 module.exports = sequelize;

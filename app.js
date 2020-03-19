@@ -31,7 +31,7 @@ const sequelize = require('./database/db');
 const helmet = require('helmet');
 const compression = require('compression');
 
-// var sneakerRoute = require('./routes/SneakerRoute');
+var sneakerRoute = require('./routes/SneakerRoute');
 var brandRoute = require('./routes/BrandRoute');
 // var orderRoute = require('./routes/OrderRoute');
 // var customerRoute = require('./routes/CustomerRoute');
@@ -72,7 +72,7 @@ app.use(cookieParser());
 app.use(helmet());
 app.use(compression());
 
-// app.use('/', sneakerRoute);
+app.use('/', sneakerRoute);
 app.use('/', brandRoute);
 // app.use('/', orderRoute);
 // app.use('/', customerRoute);

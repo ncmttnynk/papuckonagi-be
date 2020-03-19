@@ -125,6 +125,144 @@
           }
         }
       }
+    },
+    "/sneaker/{ID}": {
+      "get": {
+        "tags": ["Sneaker"],
+        "summary": "Get sneaker by ID",
+        "parameters": [
+          {
+            "name": "ID",
+            "in": "path",
+            "required": true,
+            "description": "Sneaker ID in DB",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Response"
+            }
+          }
+        }
+      }
+    },
+    "/sneaker/Brand/{BRANDID}": {
+      "get": {
+        "tags": ["Sneaker"],
+        "summary": "Get sneaker by BRAND ID",
+        "parameters": [
+          {
+            "name": "BRANDID",
+            "in": "path",
+            "required": true,
+            "description": "Brand ID in DB",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Response"
+            }
+          }
+        }
+      }
+    },
+    "/sneaker": {
+      "get": {
+        "tags": ["Sneaker"],
+        "summary": "Get all sneaker",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Response"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Sneaker"],
+        "summary": "Add new sneaker",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "model",
+            "in": "body",
+            "description": "Sneaker Detail",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SneakerPostDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Response"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["Sneaker"],
+        "summary": "Update sneaker",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "model",
+            "in": "body",
+            "description": "Put Sneaker Detail",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SneakerPutDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Response"
+            }
+          }
+        }
+      }
+    },
+    "/sneaker/{ID}/{MODIFIED_BY}": {
+      "delete": {
+        "tags": ["Sneaker"],
+        "summary": "Delete sneaker by ID",
+        "parameters": [
+          {
+            "name": "ID",
+            "in": "path",
+            "required": true,
+            "description": "Sneaker ID in DB",
+            "type": "string"
+          },
+          {
+            "name": "MODIFIED_BY",
+            "in": "path",
+            "required": true,
+            "description": "Modified By Code",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Response"
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -147,6 +285,48 @@
         },
         "TITLE": {
           "type": "string"
+        },
+        "MODIFIED_BY": {
+          "type": "string"
+        },
+        "IS_ACTIVE": {
+          "type": "boolean"
+        }
+      }
+    },
+    "SneakerPostDto": {
+      "type": "object",
+      "properties": {
+        "TITLE": {
+          "type": "string"
+        },
+        "COLOR": {
+          "type": "string"
+        },
+        "BRANDID": {
+          "type": "number",
+          "required": true
+        },
+        "CREATED_BY": {
+          "type": "string"
+        }
+      }
+    },
+    "SneakerPutDto": {
+      "type": "object",
+      "properties": {
+        "ID": {
+          "type": "number"
+        },
+        "TITLE": {
+          "type": "string"
+        },
+        "COLOR": {
+          "type": "string"
+        },
+        "BRANDID": {
+          "type": "number",
+          "required": true
         },
         "MODIFIED_BY": {
           "type": "string"
