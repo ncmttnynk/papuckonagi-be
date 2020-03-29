@@ -28,7 +28,7 @@ async function updateSneaker(data) {
       where: {
         ID: data.ID,
       },
-    },
+    }
   );
 }
 
@@ -46,7 +46,7 @@ async function deleteSneaker(data) {
       where: {
         id: data.ID,
       },
-    },
+    }
   );
 }
 
