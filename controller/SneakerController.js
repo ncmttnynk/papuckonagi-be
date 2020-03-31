@@ -1,4 +1,5 @@
 const Sneaker = require('../model/Sneaker');
+const Brand = require('../model/Brand');
 
 async function addNewSneaker(data) {
   return await Sneaker.create({
@@ -28,7 +29,7 @@ async function updateSneaker(data) {
       where: {
         ID: data.ID,
       },
-    }
+    },
   );
 }
 
@@ -46,7 +47,7 @@ async function deleteSneaker(data) {
       where: {
         id: data.ID,
       },
-    }
+    },
   );
 }
 
@@ -61,7 +62,7 @@ async function getSneakerByBrandId(data) {
 }
 
 async function getSneaker() {
-  return await Sneaker.findAll({ raw: true });
+  return await Sneaker.findAll({ include: [Brand], raw: true });
 }
 
 module.exports = {
