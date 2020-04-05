@@ -1,18 +1,22 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../database/db');
 
-const Sneaker = sequelize.define('SNEAKER', {
+const Customer = sequelize.define('CUSTOMER', {
   ID: {
     type: Sequelize.INTEGER,
     autoIncrement: true,
     allowNull: false,
     primaryKey: true,
   },
-  TITLE: {
+  NAME: {
     type: Sequelize.STRING,
     allowNull: false,
   },
-  COLOR: {
+  SURNAME: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
+  PHONE: {
     type: Sequelize.STRING,
     allowNull: false,
   },
@@ -23,7 +27,7 @@ const Sneaker = sequelize.define('SNEAKER', {
   CREATED_DATE: {
     type: Sequelize.DATE,
     allowNull: true,
-    defaultValue: Date.now,
+    defaultValue: Sequelize.DataTypes.NOW,
   },
   MODIFIED_BY: {
     type: Sequelize.STRING,
@@ -32,7 +36,6 @@ const Sneaker = sequelize.define('SNEAKER', {
   MODIFIED_DATE: {
     type: Sequelize.DATE,
     allowNull: true,
-    defaultValue: Date.now,
   },
   IS_DELETED: {
     type: Sequelize.BOOLEAN,
@@ -41,4 +44,4 @@ const Sneaker = sequelize.define('SNEAKER', {
   },
 });
 
-module.exports = Sneaker;
+module.exports = Customer;

@@ -5,7 +5,7 @@ async function addNewSneaker(data) {
   return await Sneaker.create({
     TITLE: data.TITLE,
     COLOR: data.COLOR,
-    BRANDID: data.BRANDID,
+    BRAND_ID: data.BRAND_ID,
     CREATED_BY: data.CREATED_BY,
   });
 }
@@ -57,8 +57,8 @@ async function getSneakerById(data) {
 }
 
 async function getSneakerByBrandId(data) {
-  const BRANDID = data.BRANDID;
-  return await Sneaker.findAll({ where: { BRANDID }, raw: true });
+  const BRAND_ID = data.BRAND_ID;
+  return await Sneaker.findAll({ where: { BRAND_ID }, raw: true });
 }
 
 async function getSneaker() {

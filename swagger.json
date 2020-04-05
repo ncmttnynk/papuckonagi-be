@@ -11,6 +11,236 @@
   "consumes": ["application/json"],
   "produces": ["application/json"],
   "paths": {
+    "/order/{ID}": {
+      "get": {
+        "tags": ["Order"],
+        "summary": "Get order by ID",
+        "parameters": [
+          {
+            "name": "ID",
+            "in": "path",
+            "required": true,
+            "description": "Order ID in DB",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Response"
+            }
+          }
+        }
+      }
+    },
+    "/order": {
+      "get": {
+        "tags": ["Order"],
+        "summary": "Get all order",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Response"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Order"],
+        "summary": "Add new order",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "model",
+            "in": "body",
+            "description": "Order Detail",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/OrderPostDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Response"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["Order"],
+        "summary": "Update order",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "model",
+            "in": "body",
+            "description": "Put Order Detail",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/OrderPutDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Response"
+            }
+          }
+        }
+      }
+    },
+    "/order/{ID}/{MODIFIED_BY}": {
+      "delete": {
+        "tags": ["Order"],
+        "summary": "Delete order by ID",
+        "parameters": [
+          {
+            "name": "ID",
+            "in": "path",
+            "required": true,
+            "description": "Order ID in DB",
+            "type": "string"
+          },
+          {
+            "name": "MODIFIED_BY",
+            "in": "path",
+            "required": true,
+            "description": "Modified By Code",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Response"
+            }
+          }
+        }
+      }
+    },
+    "/customer/{ID}": {
+      "get": {
+        "tags": ["Customer"],
+        "summary": "Get customer by ID",
+        "parameters": [
+          {
+            "name": "ID",
+            "in": "path",
+            "required": true,
+            "description": "Customer ID in DB",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Response"
+            }
+          }
+        }
+      }
+    },
+    "/customer": {
+      "get": {
+        "tags": ["Customer"],
+        "summary": "Get all customer",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Response"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Customer"],
+        "summary": "Add new customer",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "model",
+            "in": "body",
+            "description": "Customer Detail",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CustomerPostDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Response"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["Customer"],
+        "summary": "Update customer",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "model",
+            "in": "body",
+            "description": "Put Customer Detail",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CustomerPutDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Response"
+            }
+          }
+        }
+      }
+    },
+    "/customer/{ID}/{MODIFIED_BY}": {
+      "delete": {
+        "tags": ["Customer"],
+        "summary": "Delete customer by ID",
+        "parameters": [
+          {
+            "name": "ID",
+            "in": "path",
+            "required": true,
+            "description": "Customer ID in DB",
+            "type": "string"
+          },
+          {
+            "name": "MODIFIED_BY",
+            "in": "path",
+            "required": true,
+            "description": "Modified By Code",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Response"
+            }
+          }
+        }
+      }
+    },
     "/brand/{ID}": {
       "get": {
         "tags": ["Brand"],
@@ -149,13 +379,13 @@
         }
       }
     },
-    "/sneaker/Brand/{BRANDID}": {
+    "/sneaker/Brand/{BRAND_ID}": {
       "get": {
         "tags": ["Sneaker"],
         "summary": "Get sneaker by BRAND ID",
         "parameters": [
           {
-            "name": "BRANDID",
+            "name": "BRAND_ID",
             "in": "path",
             "required": true,
             "description": "Brand ID in DB",
@@ -289,7 +519,7 @@
         "MODIFIED_BY": {
           "type": "string"
         },
-        "IS_ACTIVE": {
+        "IS_DELETED": {
           "type": "boolean"
         }
       }
@@ -303,7 +533,7 @@
         "COLOR": {
           "type": "string"
         },
-        "BRANDID": {
+        "BRAND_ID": {
           "type": "number",
           "required": true
         },
@@ -324,14 +554,106 @@
         "COLOR": {
           "type": "string"
         },
-        "BRANDID": {
+        "BRAND_ID": {
           "type": "number",
           "required": true
         },
         "MODIFIED_BY": {
           "type": "string"
         },
-        "IS_ACTIVE": {
+        "IS_DELETED": {
+          "type": "boolean"
+        }
+      }
+    },
+    "CustomerPostDto": {
+      "type": "object",
+      "properties": {
+        "NAME": {
+          "type": "string"
+        },
+        "SURNAME": {
+          "type": "string"
+        },
+        "PHONE": {
+          "type": "string"
+        },
+        "CREATED_BY": {
+          "type": "string"
+        }
+      }
+    },
+    "CustomerPutDto": {
+      "type": "object",
+      "properties": {
+        "ID": {
+          "type": "number"
+        },
+        "NAME": {
+          "type": "string"
+        },
+        "SURNAME": {
+          "type": "string"
+        },
+        "PHONE": {
+          "type": "string"
+        },
+        "MODIFIED_BY": {
+          "type": "string"
+        },
+        "IS_DELETED": {
+          "type": "boolean"
+        }
+      }
+    },
+    "OrderPostDto": {
+      "type": "object",
+      "properties": {
+        "TOTAL": {
+          "type": "number"
+        },
+        "NOTE": {
+          "type": "string"
+        },
+        "PROVINCE_ID": {
+          "type": "number"
+        },
+        "DISTRICT_ID": {
+          "type": "number"
+        },
+        "CUSTOMER": {
+          "$ref": "#/definitions/CustomerPostDto"
+        },
+        "CREATED_BY": {
+          "type": "string"
+        }
+      }
+    },
+    "OrderPutDto": {
+      "type": "object",
+      "properties": {
+        "ID": {
+          "type": "number"
+        },
+        "TOTAL": {
+          "type": "number"
+        },
+        "NOTE": {
+          "type": "string"
+        },
+        "PROVINCE_ID": {
+          "type": "number"
+        },
+        "DISTRICT_ID": {
+          "type": "number"
+        },
+        "CUSTOMER_ID": {
+          "type": "number"
+        },
+        "MODIFIED_BY": {
+          "type": "string"
+        },
+        "IS_DELETED": {
           "type": "boolean"
         }
       }

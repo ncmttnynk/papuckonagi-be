@@ -1,44 +1,29 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../database/db');
 
-const Sneaker = sequelize.define('SNEAKER', {
+const Province = sequelize.define('PROVINCE', {
   ID: {
     type: Sequelize.INTEGER,
     autoIncrement: true,
     allowNull: false,
     primaryKey: true,
   },
-  TITLE: {
+  PLATE: {
     type: Sequelize.STRING,
     allowNull: false,
   },
-  COLOR: {
+  UPPER_CITY_NAME: {
     type: Sequelize.STRING,
     allowNull: false,
   },
-  CREATED_BY: {
+  CITY_NAME: {
     type: Sequelize.STRING,
     allowNull: false,
   },
-  CREATED_DATE: {
-    type: Sequelize.DATE,
-    allowNull: true,
-    defaultValue: Date.now,
-  },
-  MODIFIED_BY: {
+  LOWER_CITY_NAME: {
     type: Sequelize.STRING,
-    allowNull: true,
-  },
-  MODIFIED_DATE: {
-    type: Sequelize.DATE,
-    allowNull: true,
-    defaultValue: Date.now,
-  },
-  IS_DELETED: {
-    type: Sequelize.BOOLEAN,
     allowNull: false,
-    defaultValue: false,
   },
 });
 
-module.exports = Sneaker;
+module.exports = Province;

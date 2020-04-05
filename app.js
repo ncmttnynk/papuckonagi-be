@@ -16,9 +16,9 @@ const compression = require('compression');
 
 var sneakerRoute = require('./routes/SneakerRoute');
 var brandRoute = require('./routes/BrandRoute');
+var customerRoute = require('./routes/CustomerRoute');
+var orderRoute = require('./routes/OrderRoute');
 //var iotRoute = require('./routes/IoTRoute');
-// var orderRoute = require('./routes/OrderRoute');
-// var customerRoute = require('./routes/CustomerRoute');
 
 var app = express();
 swaggerDocument = require('./swagger.json');
@@ -30,11 +30,39 @@ app.set('view engine', 'jade');
 
 const Brand = require('./model/Brand');
 const Sneaker = require('./model/Sneaker');
+const District = require('./model/District');
+const Province = require('./model/Province');
+const Order = require('./model/Order');
+const OrderDetail = require('./model/OrderDetail');
+const Customer = require('./model/Customer');
 
-Sneaker.belongsTo(Brand);
-Brand.hasMany(Sneaker);
+Sneaker.belongsTo(Brand, { foreignKey: { name: 'BRAND_ID', allowNull: false, defaultValue: 0 } });
 
-app.use(function(req, res, next) {
+District.belongsTo(Province, {
+  foreignKey: { name: 'PROVINCE_ID', allowNull: false, defaultValue: 0 },
+});
+
+Order.belongsTo(Province, {
+  foreignKey: { name: 'PROVINCE_ID', allowNull: false, defaultValue: 0 },
+});
+
+Order.belongsTo(District, {
+  foreignKey: { name: 'DISTRICT_ID', allowNull: false, defaultValue: 0 },
+});
+
+Order.belongsTo(Customer, {
+  foreignKey: { name: 'CUSTOMER_ID', allowNull: false, defaultValue: 0 },
+});
+
+OrderDetail.belongsTo(Order, {
+  foreignKey: { name: 'ORDER_ID', allowNull: false, defaultValue: 0 },
+});
+
+OrderDetail.belongsTo(Sneaker, {
+  foreignKey: { name: 'SNEAKER_ID', allowNull: false, defaultValue: 0 },
+});
+
+app.use(function (req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Credentials', true);
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
@@ -58,12 +86,12 @@ app.use(compression());
 
 app.use('/', sneakerRoute);
 app.use('/', brandRoute);
+app.use('/', customerRoute);
+app.use('/', orderRoute);
 //app.use('/', iotRoute);
-// app.use('/', orderRoute);
-// app.use('/', customerRoute);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
@@ -76,14 +104,14 @@ sequelize
   .then(() => {
     console.log('Connection has been established successfully.');
     app.listen(process.env.PORT || 3001);
-    opn('http://localhost:3000/swagger/', { app: 'firefox' });
+    //opn('http://localhost:3000/swagger/', { app: 'firefox' });
   })
-  .catch(err => {
+  .catch((err) => {
     console.error('Unable to connect to the database:', err);
   });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};

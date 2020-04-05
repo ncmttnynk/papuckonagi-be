@@ -11,7 +11,7 @@ const {
 
 router.post('/Sneaker', (req, res, next) => {
   addNewSneaker(req.body)
-    .then(result => {
+    .then((result) => {
       return res.status(200).json({
         result,
         isSuccess: true,
@@ -19,7 +19,7 @@ router.post('/Sneaker', (req, res, next) => {
         statusCode: 200,
       });
     })
-    .catch(err => {
+    .catch((err) => {
       return res.status(400).json({
         result: '',
         isSuccess: false,
@@ -31,7 +31,7 @@ router.post('/Sneaker', (req, res, next) => {
 
 router.put('/Sneaker', (req, res, next) => {
   updateSneaker(req.body)
-    .then(result => {
+    .then((result) => {
       if (result[0] > 0)
         return res.status(200).json({
           result,
@@ -47,7 +47,7 @@ router.put('/Sneaker', (req, res, next) => {
           statusCode: 204,
         });
     })
-    .catch(err => {
+    .catch((err) => {
       return res.status(400).json({
         result: '',
         isSuccess: false,
@@ -59,7 +59,7 @@ router.put('/Sneaker', (req, res, next) => {
 
 router.delete('/Sneaker/:ID/:MODIFIED_BY', (req, res, next) => {
   deleteSneaker(req.params)
-    .then(result => {
+    .then((result) => {
       if (result[0] > 0)
         return res.status(200).json({
           result,
@@ -75,7 +75,7 @@ router.delete('/Sneaker/:ID/:MODIFIED_BY', (req, res, next) => {
           statusCode: 204,
         });
     })
-    .catch(err => {
+    .catch((err) => {
       return res.status(400).json({
         result: '',
         isSuccess: false,
@@ -85,9 +85,9 @@ router.delete('/Sneaker/:ID/:MODIFIED_BY', (req, res, next) => {
     });
 });
 
-router.get('/Sneaker/Brand/:BRANDID', (req, res, next) => {
+router.get('/Sneaker/Brand/:BRAND_ID', (req, res, next) => {
   getSneakerByBrandId(req.params)
-    .then(result => {
+    .then((result) => {
       if (result !== null)
         return res.status(200).json({
           result,
@@ -103,7 +103,7 @@ router.get('/Sneaker/Brand/:BRANDID', (req, res, next) => {
           statusCode: 204,
         });
     })
-    .catch(err => {
+    .catch((err) => {
       return res.status(400).json({
         result: '',
         isSuccess: false,
@@ -115,7 +115,7 @@ router.get('/Sneaker/Brand/:BRANDID', (req, res, next) => {
 
 router.get('/Sneaker/:ID', (req, res, next) => {
   getSneakerById(req.params)
-    .then(result => {
+    .then((result) => {
       if (result !== null)
         return res.status(200).json({
           result: result.dataValues,
@@ -131,7 +131,7 @@ router.get('/Sneaker/:ID', (req, res, next) => {
           statusCode: 204,
         });
     })
-    .catch(err => {
+    .catch((err) => {
       return res.status(400).json({
         result: '',
         isSuccess: false,
@@ -143,7 +143,7 @@ router.get('/Sneaker/:ID', (req, res, next) => {
 
 router.get('/Sneaker', (req, res, next) => {
   getSneaker()
-    .then(result => {
+    .then((result) => {
       if (result !== null)
         return res.status(200).json({
           result: result,
@@ -159,7 +159,7 @@ router.get('/Sneaker', (req, res, next) => {
           statusCode: 204,
         });
     })
-    .catch(err => {
+    .catch((err) => {
       return res.status(400).json({
         result: '',
         isSuccess: false,
