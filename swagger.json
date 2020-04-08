@@ -624,6 +624,12 @@
         "CUSTOMER": {
           "$ref": "#/definitions/CustomerPostDto"
         },
+        "ORDER_DETAIL": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/OrderDetailPostDto"
+          }
+        },
         "CREATED_BY": {
           "type": "string"
         }
@@ -647,7 +653,53 @@
         "DISTRICT_ID": {
           "type": "number"
         },
-        "CUSTOMER_ID": {
+        "CUSTOMER": {
+          "$ref": "#/definitions/CustomerPutDto"
+        },
+        "ORDER_DETAIL": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/OrderDetailPutDto"
+          }
+        },
+        "MODIFIED_BY": {
+          "type": "string"
+        },
+        "IS_DELETED": {
+          "type": "boolean"
+        }
+      }
+    },
+    "OrderDetailPostDto": {
+      "type": "object",
+      "properties": {
+        "QUANTITY": {
+          "type": "number"
+        },
+        "SIZE": {
+          "type": "number"
+        },
+        "SNEAKER_ID": {
+          "type": "number"
+        },
+        "CREATED_BY": {
+          "type": "string"
+        }
+      }
+    },
+    "OrderDetailPutDto": {
+      "type": "object",
+      "properties": {
+        "ID": {
+          "type": "number"
+        },
+        "QUANTITY": {
+          "type": "number"
+        },
+        "SIZE": {
+          "type": "number"
+        },
+        "SNEAKER_ID": {
           "type": "number"
         },
         "MODIFIED_BY": {
