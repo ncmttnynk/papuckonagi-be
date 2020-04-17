@@ -103,7 +103,10 @@ sequelize
   .authenticate()
   .then(() => {
     console.log('Connection has been established successfully.');
-    app.listen(process.env.PORT || 5000);
+    const PORT = process.env.PORT || 3001;
+    app.listen(PORT, () => {
+      console.log(`Our app is running on port ${PORT}`);
+    });
     //opn('http://localhost:3000/swagger/', { app: 'firefox' });
   })
   .catch((err) => {
