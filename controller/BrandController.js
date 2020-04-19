@@ -11,12 +11,14 @@ async function updateBrand(data) {
   const TITLE = data.TITLE;
   const MODIFIED_BY = data.MODIFIED_BY;
   const MODIFIED_DATE = Date.now();
+  const IS_DELETED = data.IS_DELETED;
 
   return await Brand.update(
     {
       TITLE,
       MODIFIED_BY,
       MODIFIED_DATE,
+      IS_DELETED,
     },
     {
       where: {
