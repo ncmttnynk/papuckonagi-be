@@ -13,7 +13,7 @@ async function addNewSneaker(data) {
 async function updateSneaker(data) {
   const TITLE = data.TITLE;
   const COLOR = data.COLOR;
-  const BRANDID = data.BRANDID;
+  const BRAND_ID = data.BRAND_ID;
   const MODIFIED_BY = data.MODIFIED_BY;
   const MODIFIED_DATE = Date.now();
 
@@ -21,7 +21,7 @@ async function updateSneaker(data) {
     {
       TITLE,
       COLOR,
-      BRANDID,
+      BRAND_ID,
       MODIFIED_BY,
       MODIFIED_DATE,
     },
