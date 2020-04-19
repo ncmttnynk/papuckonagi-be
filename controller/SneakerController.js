@@ -16,6 +16,7 @@ async function updateSneaker(data) {
   const BRAND_ID = data.BRAND_ID;
   const MODIFIED_BY = data.MODIFIED_BY;
   const MODIFIED_DATE = Date.now();
+  const IS_DELETED = Date.now();
 
   return await Sneaker.update(
     {
@@ -24,6 +25,7 @@ async function updateSneaker(data) {
       BRAND_ID,
       MODIFIED_BY,
       MODIFIED_DATE,
+      IS_DELETED,
     },
     {
       where: {
