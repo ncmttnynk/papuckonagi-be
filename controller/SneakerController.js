@@ -16,7 +16,7 @@ async function updateSneaker(data) {
   const BRAND_ID = data.BRAND_ID;
   const MODIFIED_BY = data.MODIFIED_BY;
   const MODIFIED_DATE = Date.now();
-  const IS_DELETED = Date.now();
+  const IS_DELETED = data.IS_DELETED;
 
   return await Sneaker.update(
     {
