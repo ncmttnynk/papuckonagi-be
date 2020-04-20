@@ -11,6 +11,20 @@
   "consumes": ["application/json"],
   "produces": ["application/json"],
   "paths": {
+    "/province": {
+      "get": {
+        "tags": ["Province"],
+        "summary": "Get all province",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Response"
+            }
+          }
+        }
+      }
+    },
     "/order/{ID}": {
       "get": {
         "tags": ["Order"],

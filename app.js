@@ -18,7 +18,8 @@ var sneakerRoute = require('./routes/SneakerRoute');
 var brandRoute = require('./routes/BrandRoute');
 var customerRoute = require('./routes/CustomerRoute');
 var orderRoute = require('./routes/OrderRoute');
-//var iotRoute = require('./routes/IoTRoute');
+var provinceRoute = require('./routes/ProvinceRoute');
+var districtRoute = require('./routes/DistrictRoute');
 
 var app = express();
 swaggerDocument = require('./swagger.json');
@@ -39,6 +40,11 @@ const Customer = require('./model/Customer');
 Sneaker.belongsTo(Brand, { foreignKey: { name: 'BRAND_ID', allowNull: false, defaultValue: 0 } });
 
 District.belongsTo(Province, {
+  foreignKey: { name: 'PROVINCE_ID', allowNull: false, defaultValue: 0 },
+});
+
+Province.hasMany(District, {
+  as: 'DISTRICTS',
   foreignKey: { name: 'PROVINCE_ID', allowNull: false, defaultValue: 0 },
 });
 
@@ -88,7 +94,8 @@ app.use('/', sneakerRoute);
 app.use('/', brandRoute);
 app.use('/', customerRoute);
 app.use('/', orderRoute);
-//app.use('/', iotRoute);
+app.use('/', provinceRoute);
+app.use('/', districtRoute);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -103,7 +110,7 @@ sequelize
   .authenticate()
   .then(() => {
     console.log('Connection has been established successfully.');
-    const PORT = process.env.PORT || 3001;
+    const PORT = process.env.PORT || 3005;
     app.listen(PORT, () => {
       console.log(`Our app is running on port ${PORT}`);
     });
