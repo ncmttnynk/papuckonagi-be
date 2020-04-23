@@ -10,7 +10,6 @@ var cors = require('cors');
 
 const swaggerUi = require('swagger-ui-express');
 
-const sequelize = require('./database/db');
 const helmet = require('helmet');
 const compression = require('compression');
 
@@ -28,56 +27,6 @@ app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
-
-const Brand = require('./model/Brand');
-const Sneaker = require('./model/Sneaker');
-const District = require('./model/District');
-const Province = require('./model/Province');
-const Order = require('./model/Order');
-const OrderDetail = require('./model/OrderDetail');
-const Customer = require('./model/Customer');
-
-Sneaker.belongsTo(Brand, { foreignKey: { name: 'BRAND_ID', allowNull: false, defaultValue: 0 } });
-
-District.belongsTo(Province, {
-  foreignKey: { name: 'PROVINCE_ID', allowNull: false, defaultValue: 0 },
-});
-
-Province.hasMany(District, {
-  as: 'DISTRICTS',
-  foreignKey: { name: 'PROVINCE_ID', allowNull: false, defaultValue: 0 },
-});
-
-Order.belongsTo(Province, {
-  foreignKey: { name: 'PROVINCE_ID', allowNull: false, defaultValue: 0 },
-});
-
-Order.belongsTo(District, {
-  foreignKey: { name: 'DISTRICT_ID', allowNull: false, defaultValue: 0 },
-});
-
-Order.belongsTo(Customer, {
-  foreignKey: { name: 'CUSTOMER_ID', allowNull: false, defaultValue: 0 },
-});
-
-OrderDetail.belongsTo(Order, {
-  foreignKey: { name: 'ORDER_ID', allowNull: false, defaultValue: 0 },
-});
-
-OrderDetail.belongsTo(Sneaker, {
-  foreignKey: { name: 'SNEAKER_ID', allowNull: false, defaultValue: 0 },
-});
-
-app.use(function (req, res, next) {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Credentials', true);
-  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-  res.header(
-    'Access-Control-Allow-Headers',
-    'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json',
-  );
-  next();
-});
 
 app.use(logger('dev'));
 app.use(cors());
@@ -101,24 +50,6 @@ app.use('/', districtRoute);
 app.use(function (req, res, next) {
   next(createError(404));
 });
-
-var opn = require('opn');
-
-//Connection
-sequelize
-  //.sync()
-  .authenticate()
-  .then(() => {
-    console.log('Connection has been established successfully.');
-    const PORT = process.env.PORT || 3005;
-    app.listen(PORT, () => {
-      console.log(`Our app is running on port ${PORT}`);
-    });
-    //opn('http://localhost:3000/swagger/', { app: 'firefox' });
-  })
-  .catch((err) => {
-    console.error('Unable to connect to the database:', err);
-  });
 
 // error handler
 app.use(function (err, req, res, next) {

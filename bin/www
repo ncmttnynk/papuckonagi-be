@@ -12,7 +12,7 @@ var http = require('http');
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '3001');
+var port = normalizePort(process.env.PORT || '3005');
 app.set('port', port);
 
 /**
@@ -21,13 +21,67 @@ app.set('port', port);
 
 var server = http.createServer(app);
 
+var io = require('socket.io')(server);
+require('../sockets/index')(io);
+
+const sequelize = require('../database/db');
+
+const Brand = require('../model/Brand');
+const Sneaker = require('../model/Sneaker');
+const District = require('../model/District');
+const Province = require('../model/Province');
+const Order = require('../model/Order');
+const OrderDetail = require('../model/OrderDetail');
+const Customer = require('../model/Customer');
+
+Sneaker.belongsTo(Brand, { foreignKey: { name: 'BRAND_ID', allowNull: false, defaultValue: 0 } });
+
+District.belongsTo(Province, {
+  foreignKey: { name: 'PROVINCE_ID', allowNull: false, defaultValue: 0 },
+});
+
+Province.hasMany(District, {
+  as: 'DISTRICTS',
+  foreignKey: { name: 'PROVINCE_ID', allowNull: false, defaultValue: 0 },
+});
+
+Order.belongsTo(Province, {
+  foreignKey: { name: 'PROVINCE_ID', allowNull: false, defaultValue: 0 },
+});
+
+Order.belongsTo(District, {
+  foreignKey: { name: 'DISTRICT_ID', allowNull: false, defaultValue: 0 },
+});
+
+Order.belongsTo(Customer, {
+  foreignKey: { name: 'CUSTOMER_ID', allowNull: false, defaultValue: 0 },
+});
+
+OrderDetail.belongsTo(Order, {
+  foreignKey: { name: 'ORDER_ID', allowNull: false, defaultValue: 0 },
+});
+
+OrderDetail.belongsTo(Sneaker, {
+  foreignKey: { name: 'SNEAKER_ID', allowNull: false, defaultValue: 0 },
+});
+
+//Connection
+sequelize
+  //.sync()
+  .authenticate()
+  .then(() => {
+    server.listen(port);
+    server.on('error', onError);
+    server.on('listening', onListening);
+    console.log('Connection has been established successfully.');
+  })
+  .catch((err) => {
+    console.error('Unable to connect to the database:', err);
+  });
+
 /**
  * Listen on provided port, on all network interfaces.
  */
-
-server.listen(port);
-server.on('error', onError);
-server.on('listening', onListening);
 
 /**
  * Normalize a port into a number, string, or false.
